@@ -56,7 +56,43 @@ public class HomeController {
 		//return "wall";
 	return "home";
 	}
-	
+
+
+	@RequestMapping(value = "/databaseServerView", method = RequestMethod.GET)
+	public String dbhome(Model model) {
+		logger.info("Home page requested");
+		//get a list of all posts
+		List<Mycollection1> myCollection1List = myCollectionBO.getAllCollections();
+
+		System.out.println("chetan--"+myCollection1List.get(0).getApplicationName());
+		//add to session
+		model.addAttribute("myCollection1List", myCollection1List);
+		//model.addAttribute("postForm", new Post());
+		//returns wall.jsp
+		//return "wall";
+		return "dbserver";
+	}
+
+
+
+	@RequestMapping(value = "/writeup", method = RequestMethod.GET)
+	public String writeup(Model model) {
+		logger.info("Home page requested");
+		//get a list of all posts
+		//List<Mycollection1> myCollection1List = myCollectionBO.getAllCollections();
+
+		//System.out.println("chetan--"+myCollection1List.get(0).getApplicationName());
+		//add to session
+		//model.addAttribute("myCollection1List", myCollection1List);
+		//model.addAttribute("postForm", new Post());
+		//returns wall.jsp
+		//return "wall";
+		return "writeup";
+	}
+
+
+
+
 //	@RequestMapping(value = "/posts", method = RequestMethod.GET)
 //	public String posts(Model model) {
 //		logger.info("posts requested");

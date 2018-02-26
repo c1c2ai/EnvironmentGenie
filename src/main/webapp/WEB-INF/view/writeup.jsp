@@ -174,9 +174,9 @@
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
         </div>
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-            <a href="/" class="mdl-layout__tab is-active" id="applicationServers"> <img src="img/appservers.png"/> Application Servers</a>
+            <a href="/" class="mdl-layout__tab " id="applicationServers"> <img src="img/appservers.png"/> Application Servers</a>
             <a href="/databaseServerView" class="mdl-layout__tab" id="databaseServers"><img src="img/databaseservers.png"/> Database servers</a>
-            <a href="/writeup" class="mdl-layout__tab" id="aboutEnvironment">About Environment Genie</a>
+            <a href="/writeup" class="mdl-layout__tab is-active" id="aboutEnvironment">About Environment Genie</a>
 
         </div>
 
@@ -188,65 +188,8 @@
     <main class="mdl-layout__content">
 
 
-
-        <div class="mdl-layout__tab-panel is-active" id="applicationServerView">
-
-                <c:forEach items="${myCollection1List}" var="myServer" varStatus="p">
-                    <c:if test="${myServer.type=='appserver'}" >
-                    <!-- Square card -->
-                    <div  class="mdl-card mdl-shadow--2dp demo-card-square">
-
-
-                        <c:choose>
-                            <c:when test="${myServer.appstatus=='True'}">
-                                <div class="mdl-card__title mdl-card--expand" style="background: green">
-                                    <i class="material-icons">dns</i><h2 class="mdl-card__title-text" >${myServer.hostName}</h2>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="mdl-card__title mdl-card--expand" style="background: red">
-                                    <i class="material-icons">dns</i><h2 class="mdl-card__title-text">${myServer.hostName}</h2>
-
-                                    <!-- Rich Tooltip -->
-                                    <%--<div id="tt3" class="icon material-icons">cloud_upload</div>--%>
-                                    <span class="mdi mdi-linux"></span>
-                                    <div class="mdl-tooltip" data-mdl-for="tt3">
-                                            ${myServer.OS}
-                                    </div>
-
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-
-
-
-
-
-                        <div class="mdl-card__supporting-text">
-
-                            <b><h7 title="Application Name"><img src="img/applicationIcon.png"/> ${myServer.applicationName}</h7></b><br/>
-                            <h7 title="Application Server"><img src="img/Tomcat-logo.svg.png" width="16px" height="16px"/> ${myServer.appserver}</h7><br/>
-
-                                <h7 title="Operating System"><img src="img/if_redhat_7353.png " height="16px" width="16px"/> ${myServer.OS}</h7><br/>
-                                <h7 title="Health"><i class="fas fa-heartbeat"></i> ${myServer.health}</h7><br/>
-                                <h7 title="Java Version"><img src="img/java.png"/> ${myServer.javaVesion}</h7><br/>
-
-                            <h7 title="Memory Available"> <img src="img/memory-chip.png"> <span title="Available Size">${myServer.available_size}B</span><span title="Available Size Percentage"> ${myServer.available_size_percentage}</span></h7><br/>
-                                <h7 title="App Status"><img src="img/notification.png"> ${myServer.appstatus}</h7><br/>
-                             <h7 title="External Link"><img src="img/external-link.png"><a href="${myServer.application_Link}">Application Console</a></h7><br/>
-                        </div>
-
-                    </div>
-                </c:if>
-
-                </c:forEach>
-            <%--experimental details --%>
-
-        </div>
-
-
-
-
+        <center><iframe src="img/EnvironmentAutomationPDF.pdf"
+                        style="width: 100%; height: 100%;" frameborder="0"></iframe></center>
 
 
 
@@ -259,7 +202,7 @@
 <script>
 
     $().ready(function () {
-$('#applicationServers').trigger('click');
+        $('#applicationServers').trigger('click');
 
 
 

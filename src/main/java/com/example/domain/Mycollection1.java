@@ -21,11 +21,29 @@ public class Mycollection1 implements Serializable {
     private String Appstatus;
     private String DBstatus;
     private String OS;
+
+    public String getJavaVesion() {
+        return javaVesion;
+    }
+
+    public void setJavaVesion(String javaVesion) {
+        this.javaVesion = javaVesion;
+    }
+
     private String health;
-    private String javaVersion;
+    private String javaVesion;
     private String type;
     private String available_size;
     private String available_size_percentage;
+    private String Application_Link;
+
+    public String getApplication_Link() {
+        return Application_Link;
+    }
+
+    public void setApplication_Link(String application_Link) {
+        Application_Link = application_Link;
+    }
 
     private Date date;
 
@@ -109,13 +127,7 @@ public class Mycollection1 implements Serializable {
         this.health = health;
     }
 
-    public String getJavaVersion() {
-        return javaVersion;
-    }
 
-    public void setJavaVersion(String javaVersion) {
-        this.javaVersion = javaVersion;
-    }
 
     public String getType() {
         return type;
