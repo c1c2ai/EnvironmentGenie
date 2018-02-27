@@ -152,23 +152,58 @@
         </div>
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
             <img src="img\icons8-genie-100.png"><h3>Environment-Genie Dashboard</h3>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-            <table>
-                <tr><td style="align-content: center"><h6 style="color: white">No.Appserver</h6></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="align-content: center"><h6 style="color: white">No.DBServer</h6></td></tr>
-                <tr><td style="align-content: center"><h1 style="color: white">3</h1></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="align-content: center"><h1 style="color: white">3</h1></td></tr>
-            </table>
+            <div class="single-chart" style="margin-left: 250px">
+                <svg viewbox="0 0 36 36" class="circular-chart green">
+                    <path class="circle-bg"
+                          d="M18 2.0845
+          a 15.9155 15.9155 0 0 1 0 31.831
+          a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <path class="circle"
+                          stroke-dasharray="${appServerPercentage}, 100"
+                          d="M18 2.0845
+          a 15.9155 15.9155 0 0 1 0 31.831
+          a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <text x="18" y="20.35" class="percentage" >${appServerPercentage}%</text>
+                </svg>
+                <div style="margin-left: 80px">Application Servers</div>
+            </div>
+            <div class="single-chart">
+                <svg viewbox="0 0 36 36" class="circular-chart green">
+                    <path class="circle-bg"
+                          d="M18 2.0845
+          a 15.9155 15.9155 0 0 1 0 31.831
+          a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <path class="circle"
+                          stroke-dasharray="${dbServerPercentage}, 100"
+                          d="M18 2.0845
+          a 15.9155 15.9155 0 0 1 0 31.831
+          a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <text x="18" y="20.35" class="percentage" >${dbServerPercentage}%</text>
+                </svg>
+                <div style="margin-left: 80px">Database Servers</div>
+            </div>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+
+            <%--<table>--%>
+                <%--<tr><td style="align-content: center"><h6 style="color: white">No.Appserver</h6></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="align-content: center"><h6 style="color: white">No.DBServer</h6></td></tr>--%>
+                <%--<tr><td style="align-content: center"><h1 style="color: white">3</h1></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="align-content: center"><h1 style="color: white">3</h1></td></tr>--%>
+            <%--</table>--%>
 
         </div>
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
@@ -227,15 +262,31 @@
 
                         <div class="mdl-card__supporting-text">
 
-                            <b><h7 title="Application Name"><img src="img/applicationIcon.png"/> ${myServer.applicationName}</h7></b><br/>
-                            <h7 title="Database Version"><img src="img/mysql.png" width="16px" height="16px"/> ${myServer.DBVersion}</h7><br/>
+
+                            <c:if test="${myServer.DBstatus =='True'}">
+                                <b><h7 title="Application Name"><img src="img/applicationIcon.png"/> ${myServer.applicationName}</h7></b><br/>
+                                <h7 title="Database Version"><img src="img/mysql.png" width="16px" height="16px"/> ${myServer.DBVersion}</h7><br/>
+
+                            </c:if>
+
 
                             <h7 title="Operating System"><img src="img/if_redhat_7353.png " height="16px" width="16px"/> ${myServer.OS}</h7><br/>
                             <h7 title="Health"><i class="fas fa-heartbeat"></i> ${myServer.health}</h7><br/>
                             <%--<h7 title="Java Version"><img src="img/java.png"/> ${myServer.javaVesion}</h7><br/>--%>
 
-                            <h7 title="Memory Available"> <img src="img/memory-chip.png"> <span title="Available Size">${myServer.available_size}B</span><span title="Available Size Percentage"> ${myServer.available_size_percentage}</span></h7><br/>
-                            <h7 title="Database Status"><img src="img/notification.png"> ${myServer.DBstatus}</h7><br/>
+                            <h7 title="Memory Available"> <img src="img/memory-chip.png"> <span title="Available Size">${myServer.available_size}B</span>-<span title="Available Size Percentage"> ${myServer.available_size_percentage}</span></h7><br/>
+
+                            <c:choose>
+                                <c:when test="${myServer.DBstatus=='True'}">
+                                    <h7 title="Database Status: Online"><img src="img/green_operational_icon.png" width="16px" height="16px">DB Status</h7><br/>
+                                </c:when>
+                                <c:otherwise>
+                                    <h7 title="Database Status: Offline"><img src="img/red_offline_icon.png" width="16px" height="16px">  DB Status</h7><br/>
+                                </c:otherwise>
+
+                            </c:choose>
+
+
                             <%--<h7 title="External Link"><img src="img/external-link.png"><a href="${myServer.application_Link}">Application Console</a></h7><br/>--%>
                         </div>
 

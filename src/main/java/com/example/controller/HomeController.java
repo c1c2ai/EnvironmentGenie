@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -44,13 +45,47 @@ public class HomeController {
 	// Homepage returns lists of messages
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
+
 		logger.info("Home page requested");
-		//get a list of all posts
+        Double totalDBServers=new Double("0");
+        Double onlineDBServers=new Double("0");
+		Double dbServerPercentage=new Double("0");
+
+        Double totalAppServers=new Double("0");
+        Double onlineAppserver=new Double("0");
+		Double appServerPercentage=new Double("0");
+        DecimalFormat df = new DecimalFormat("#.00");
+        //get a list of all posts
 		List<Mycollection1> myCollection1List = myCollectionBO.getAllCollections();
+
+		for (int i=0;i<myCollection1List.size();i++){
+
+		    if(myCollection1List.get(i).getType().equalsIgnoreCase("appserver")){
+		        totalAppServers=totalAppServers+1;
+		        if(myCollection1List.get(i).getAppstatus().equalsIgnoreCase("true")){
+		            onlineAppserver=onlineAppserver+1;
+                }
+
+            }
+            if(myCollection1List.get(i).getType().equalsIgnoreCase("dbserver")){
+		        totalDBServers=totalDBServers+1;
+		        if(myCollection1List.get(i).getDBstatus().equalsIgnoreCase("true")){
+		            onlineDBServers=onlineDBServers+1;
+                }
+            }
+
+        }
+
+        appServerPercentage=(Double)(onlineAppserver/totalAppServers)*100;
+		dbServerPercentage=(Double)(onlineDBServers/totalDBServers)*100;
+
 
 		System.out.println("chetan--"+myCollection1List.get(0).getApplicationName());
 		//add to session
 		model.addAttribute("myCollection1List", myCollection1List);
+		model.addAttribute("appServerPercentage",df.format(appServerPercentage));
+        model.addAttribute("dbServerPercentage",df.format(dbServerPercentage));
+
 		//model.addAttribute("postForm", new Post());
 		//returns wall.jsp
 		//return "wall";
@@ -61,12 +96,42 @@ public class HomeController {
 	@RequestMapping(value = "/databaseServerView", method = RequestMethod.GET)
 	public String dbhome(Model model) {
 		logger.info("Home page requested");
+        Double totalDBServers=new Double("0");
+        Double onlineDBServers=new Double("0");
+        Double dbServerPercentage=new Double("0");
+
+        Double totalAppServers=new Double("0");
+        Double onlineAppserver=new Double("0");
+        Double appServerPercentage=new Double("0");
+        DecimalFormat df = new DecimalFormat("#.00");
 		//get a list of all posts
 		List<Mycollection1> myCollection1List = myCollectionBO.getAllCollections();
+
+        for (int i=0;i<myCollection1List.size();i++){
+
+            if(myCollection1List.get(i).getType().equalsIgnoreCase("appserver")){
+                totalAppServers=totalAppServers+1;
+                if(myCollection1List.get(i).getAppstatus().equalsIgnoreCase("true")){
+                    onlineAppserver=onlineAppserver+1;
+                }
+
+            }
+            if(myCollection1List.get(i).getType().equalsIgnoreCase("dbserver")){
+                totalDBServers=totalDBServers+1;
+                if(myCollection1List.get(i).getDBstatus().equalsIgnoreCase("true")){
+                    onlineDBServers=onlineDBServers+1;
+                }
+            }
+
+        }
+        appServerPercentage=(Double)(onlineAppserver/totalAppServers)*100;
+        dbServerPercentage=(Double)(onlineDBServers/totalDBServers)*100;
 
 		System.out.println("chetan--"+myCollection1List.get(0).getApplicationName());
 		//add to session
 		model.addAttribute("myCollection1List", myCollection1List);
+        model.addAttribute("appServerPercentage",df.format(appServerPercentage));
+        model.addAttribute("dbServerPercentage",df.format(dbServerPercentage));
 		//model.addAttribute("postForm", new Post());
 		//returns wall.jsp
 		//return "wall";
