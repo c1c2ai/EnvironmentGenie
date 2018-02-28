@@ -161,31 +161,35 @@ public class HomeController {
 
         logger.info("spindown requested for "+hostname);
 //String scriptName="C:\\Users\\P10368884.PDCDT01C06DTQ0\\Desktop\\a.bat";
-        String scriptName = "/etc/ansible/scripts/runSpinDownApp.sh";
+      //  String scriptName = "/etc/ansible/scripts/runSpinDownApp.sh";
 
-        ProcessBuilder pb = new ProcessBuilder(scriptName,hostname);
 
-        //String commands[] = new String[]{scriptName,hostname};
-
-//        Runtime rt = Runtime.getRuntime();
-//        Process process = null;
         try{
-           Process p= pb.start();
-            //process = rt.exec(commands);
-            String line;
-           // Process p = Runtime.getRuntime().exec(commands);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String readline;
-            int i = 0;
-            while ((readline = reader.readLine()) != null) {
-                logger.info(++i + " " + readline);
-            }
-           // process.waitFor();
+
+
+            String[] command = {"/etc/ansible/scripts/runSpinDownApp.sh", hostname};
+            ProcessBuilder p = new ProcessBuilder(command);
+
+
+
+                // create a process builder to send a command and a argument
+                Process p2 = p.start();
+                BufferedReader br = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+                String line;
+
+                logger.info("Output of running " + command + " is: ");
+                System.out.println("Output of running " + command + " is: ");
+                while ((line = br.readLine()) != null) {
+                    logger.info(line);
+                }
+
+
+
         }catch(Exception e){
             logger.info(e);
         }
 
-       // ProcessBuilder processBuilder=new ProcessBuilder();
+
 
         logger.info("spindown requested completed for "+hostname);
 
