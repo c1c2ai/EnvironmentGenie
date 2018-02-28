@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +42,7 @@ public class HomeController {
 //	}
 
 	// Homepage returns lists of messages
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/EnvironmentGenie", method = RequestMethod.GET)
 	public String home(Model model) {
 
 		logger.info("Home page requested");
@@ -90,7 +92,7 @@ public class HomeController {
 	}
 
 
-	@RequestMapping(value = "/databaseServerView", method = RequestMethod.GET)
+	@RequestMapping(value = "/EnvironmentGenie/databaseServerView", method = RequestMethod.GET)
 	public String dbhome(Model model) {
 		logger.info("Home page requested");
         Double totalDBServers=new Double("0");
@@ -137,7 +139,7 @@ public class HomeController {
 
 
 
-	@RequestMapping(value = "/writeup", method = RequestMethod.GET)
+	@RequestMapping(value = "/EnvironmentGenie/writeup", method = RequestMethod.GET)
 	public String writeup(Model model) {
 		logger.info("Home page requested");
 		//get a list of all posts
@@ -152,12 +154,39 @@ public class HomeController {
 		return "writeup";
 	}
 
-	@RequestMapping(value = "/spindown/{hostname}",method = RequestMethod.GET)
+	@RequestMapping(value = "/EnvironmentGenie/spindown/{hostname}",method = RequestMethod.GET)
     public  String spinDown(@PathVariable String hostname,Model model){
 
 
 
-        logger.info("Home page requested");
+        logger.info("spindown requested for "+hostname);
+//String scriptName="C:\\Users\\P10368884.PDCDT01C06DTQ0\\Desktop\\a.bat";
+        String scriptName = "/etc/ansible/scripts/runSpinDownApp.sh";
+        String commands[] = new String[]{scriptName,hostname};
+
+        Runtime rt = Runtime.getRuntime();
+        Process process = null;
+        try{
+            //process = rt.exec(commands);
+            String line;
+            Process p = Runtime.getRuntime().exec(commands);
+            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            while ((line = input.readLine()) != null) {
+                System.out.println(line);
+            }
+            input.close();
+           // process.waitFor();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+       // ProcessBuilder processBuilder=new ProcessBuilder();
+
+        logger.info("spindown requested completed for "+hostname);
+
+
+
+
         Double totalDBServers=new Double("0");
         Double onlineDBServers=new Double("0");
         Double dbServerPercentage=new Double("0");
@@ -191,7 +220,7 @@ public class HomeController {
         dbServerPercentage=(Double)(onlineDBServers/totalDBServers)*100;
 
 
-        System.out.println("chetan--"+myCollection1List.get(0).getApplicationName());
+       // System.out.println("chetan--"+myCollection1List.get(0).getApplicationName());
         //add to session
         model.addAttribute("myCollection1List", myCollection1List);
         model.addAttribute("appServerPercentage",df.format(appServerPercentage));
@@ -200,22 +229,6 @@ public class HomeController {
         //model.addAttribute("postForm", new Post());
         //returns wall.jsp
         //return "wall";
-
-
-        String scriptName = "/etc/ansible/scripts/runSpinDownApp.sh";
-        String commands[] = new String[]{scriptName,hostname};
-
-        Runtime rt = Runtime.getRuntime();
-        Process process = null;
-        try{
-            process = rt.exec(commands);
-            process.waitFor();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-       // ProcessBuilder processBuilder=new ProcessBuilder();
-
 
 	    return "home";
     }

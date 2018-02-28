@@ -207,9 +207,9 @@
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
         </div>
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-            <a href="/" class="mdl-layout__tab is-active" id="applicationServers"> <img src="img/appservers.png"/> Application Servers</a>
-            <a href="/databaseServerView" class="mdl-layout__tab" id="databaseServers"><img src="img/databaseservers.png"/> Database servers</a>
-            <a href="/writeup" class="mdl-layout__tab" id="aboutEnvironment">About Environment Genie</a>
+            <a href="/EnvironmentGenie" class="mdl-layout__tab is-active" id="applicationServers"> <img src="img/appservers.png"/> Application Servers</a>
+            <a href="/EnvironmentGenie/databaseServerView" class="mdl-layout__tab" id="databaseServers"><img src="img/databaseservers.png"/> Database servers</a>
+            <a href="/EnvironmentGenie/writeup" class="mdl-layout__tab" id="aboutEnvironment">About Environment Genie</a>
 
         </div>
 
