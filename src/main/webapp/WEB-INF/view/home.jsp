@@ -137,11 +137,7 @@
             background: #ff9800;
         }
 
-        body {
-            padding: 20px;
-            background: #fafafa;
-            position: relative;
-        }
+
 
     </style>
 </head>
@@ -152,7 +148,7 @@
         </div>
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
             <img src="img\icons8-genie-100.png"><h3>Environment-Genie Dashboard</h3>
-            <div class="single-chart" style="margin-left: 250px">
+            <div class="single-chart" style="margin-left: 150px">
                 <svg viewbox="0 0 36 36" class="circular-chart green">
                     <path class="circle-bg"
                           d="M18 2.0845
@@ -256,7 +252,35 @@
                         </c:choose>
 
 
+                       <div>
 
+                           <div class="mdl-card__menu">
+
+                               <!-- Right aligned menu below button -->
+                               <button id="demo-menu-lower-left${p.index}"
+                                       class="mdl-button mdl-js-button mdl-button--icon">
+                                   <i class="material-icons" style="color: white">more_vert</i>
+                               </button>
+
+                               <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                   for="demo-menu-lower-left${p.index}">
+                                   <c:choose>
+                                       <c:when test="${myServer.appstatus=='True'}">
+                                           <li class="mdl-menu__item"><a  href="/spindown/${myServer.hostName}">Spin Down</a></li>
+                                       </c:when>
+                                       <c:otherwise>
+                                           <li class="mdl-menu__item"><a  href="/spinup/${myServer.hostName}">Spin Up</a></li>
+                                       </c:otherwise>
+                                   </c:choose>
+
+
+
+
+
+                               </ul>
+                           </div>
+
+                       </div>
 
 
                         <div class="mdl-card__supporting-text">
@@ -297,6 +321,8 @@
 
                 </c:forEach>
             <%--experimental details --%>
+
+
 
         </div>
 

@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.bo.PostBO;
 import com.example.domain.Post;
@@ -154,6 +151,74 @@ public class HomeController {
 		//return "wall";
 		return "writeup";
 	}
+
+	@RequestMapping(value = "/spindown/{hostname}",method = RequestMethod.GET)
+    public  String spinDown(@PathVariable String hostname,Model model){
+
+
+
+        logger.info("Home page requested");
+        Double totalDBServers=new Double("0");
+        Double onlineDBServers=new Double("0");
+        Double dbServerPercentage=new Double("0");
+
+        Double totalAppServers=new Double("0");
+        Double onlineAppserver=new Double("0");
+        Double appServerPercentage=new Double("0");
+        DecimalFormat df = new DecimalFormat("#.00");
+        //get a list of all posts
+        List<Mycollection1> myCollection1List = myCollectionBO.getAllCollections();
+
+        for (int i=0;i<myCollection1List.size();i++){
+
+            if(myCollection1List.get(i).getType().equalsIgnoreCase("appserver")){
+                totalAppServers=totalAppServers+1;
+                if(myCollection1List.get(i).getAppstatus().equalsIgnoreCase("true")){
+                    onlineAppserver=onlineAppserver+1;
+                }
+
+            }
+            if(myCollection1List.get(i).getType().equalsIgnoreCase("dbserver")){
+                totalDBServers=totalDBServers+1;
+                if(myCollection1List.get(i).getDBstatus().equalsIgnoreCase("true")){
+                    onlineDBServers=onlineDBServers+1;
+                }
+            }
+
+        }
+
+        appServerPercentage=(Double)(onlineAppserver/totalAppServers)*100;
+        dbServerPercentage=(Double)(onlineDBServers/totalDBServers)*100;
+
+
+        System.out.println("chetan--"+myCollection1List.get(0).getApplicationName());
+        //add to session
+        model.addAttribute("myCollection1List", myCollection1List);
+        model.addAttribute("appServerPercentage",df.format(appServerPercentage));
+        model.addAttribute("dbServerPercentage",df.format(dbServerPercentage));
+
+        //model.addAttribute("postForm", new Post());
+        //returns wall.jsp
+        //return "wall";
+
+
+        String scriptName = "/etc/ansible/scripts/runSpinDownApp.sh";
+        String commands[] = new String[]{scriptName,hostname};
+
+        Runtime rt = Runtime.getRuntime();
+        Process process = null;
+        try{
+            process = rt.exec(commands);
+            process.waitFor();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+       // ProcessBuilder processBuilder=new ProcessBuilder();
+
+
+	    return "home";
+    }
 
 
 

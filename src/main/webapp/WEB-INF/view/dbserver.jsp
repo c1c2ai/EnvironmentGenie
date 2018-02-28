@@ -153,7 +153,7 @@
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
             <img src="img\icons8-genie-100.png"><h3>Environment-Genie Dashboard</h3>
 
-            <div class="single-chart" style="margin-left: 250px">
+            <div class="single-chart" style="margin-left: 150px">
                 <svg viewbox="0 0 36 36" class="circular-chart green">
                     <path class="circle-bg"
                           d="M18 2.0845
