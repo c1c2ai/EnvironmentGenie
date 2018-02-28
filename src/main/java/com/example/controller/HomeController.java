@@ -162,22 +162,27 @@ public class HomeController {
         logger.info("spindown requested for "+hostname);
 //String scriptName="C:\\Users\\P10368884.PDCDT01C06DTQ0\\Desktop\\a.bat";
         String scriptName = "/etc/ansible/scripts/runSpinDownApp.sh";
-        String commands[] = new String[]{scriptName,hostname};
 
-        Runtime rt = Runtime.getRuntime();
-        Process process = null;
+        ProcessBuilder pb = new ProcessBuilder(scriptName,hostname);
+
+        //String commands[] = new String[]{scriptName,hostname};
+
+//        Runtime rt = Runtime.getRuntime();
+//        Process process = null;
         try{
+           Process p= pb.start();
             //process = rt.exec(commands);
             String line;
-            Process p = Runtime.getRuntime().exec(commands);
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            while ((line = input.readLine()) != null) {
-                System.out.println(line);
+           // Process p = Runtime.getRuntime().exec(commands);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String readline;
+            int i = 0;
+            while ((readline = reader.readLine()) != null) {
+                logger.info(++i + " " + readline);
             }
-            input.close();
            // process.waitFor();
         }catch(Exception e){
-            e.printStackTrace();
+            logger.info(e);
         }
 
        // ProcessBuilder processBuilder=new ProcessBuilder();
